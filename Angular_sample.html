@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ja" ng-app="myApp">
+<title>Angular.js Sample library</title>
+<head>
+<meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+<script>
+//myappモジュールを作成
+var app = angular.module('myApp', []);
+//myappモジュールにmyControllerコントローラーを登録
+app.controller('myController', function() {
+	//----------------------------------
+	//Angular Sample1
+	//----------------------------------
+	this.message = 'Hello world!';
+
+	//----------------------------------
+	//Angular Sample2
+	//----------------------------------
+	this.members = [
+		{ name: 'Tanaka', age: 36 },
+		{ name: 'Suzuki', age: 16 },
+		{ name: 'Yamada', age: 26 }
+	];
+
+	//----------------------------------
+	//Angular Sample4
+	//----------------------------------
+	this.count = 0;
+	this.inc = function() { this.count++; }
+	this.dec = function() { this.count--; }
+
+	//----------------------------------
+	//Angular Sample6
+	//----------------------------------
+	this.members_b = [
+		{ name:"田中", age:16 },
+		{ name:"山田", age:26 },
+		{ name:"鈴木", age:36 },
+	];
+	this.onAdd = function() {
+		//入力チェック
+		if(typeof this.name !==　'undefined' & typeof this.age !==　'undefined'){
+			this.members_b.push({ name:this.name, age:this.age });
+			this.name = this.age = "";
+		}else{
+			alert("入力してください。");
+		}
+
+	};
+	this.onDel = function() {
+		for (var i = 0; i < this.members_b.length; i++) {
+			if (this.members_b[i].checked) {
+				this.members_b.splice(i--, 1);
+			}
+		}
+	};
+
+
+});
+</script>
+</head>
+	<body>
+		<h1>Angular.js Sample Library</h1>
+		<!---------------------------------------->
+		<!--Angular Sample1 文字出力-->
+		<!---------------------------------------->
+		<h2>Sample1</h2>
+		<div>
+			<div ng-controller="myController as myCtrl">
+				{{myCtrl.message}}
+			</div>
+		</div>
+
+		<!---------------------------------------->
+		<!--Angular Sample2 リスト作成-->
+		<!---------------------------------------->
+		<hr>
+		<h2>Sample2</h2>
+		<div ng-controller="myController as myCtrl">
+			<ul>
+				<!--member変数にmyCtrl.members配列の情報を格納する-->
+				<li ng-repeat="member in myCtrl.members">
+					{{member.name}} {{member.age}}
+				</li>
+			</ul>
+			<div>
+				{{myCtrl.members.length}} members
+			</div>
+		</div>
+
+		<!---------------------------------------->
+		<!--Angular Sample3 リストフィルタ-->
+		<!---------------------------------------->
+		<hr>
+		<h2>Sample3</h2>
+		<div ng-controller="myController as myCtrl">
+			<input type="text" ng-model="searchText">
+			<ul>
+				<li ng-repeat="member in myCtrl.members|filter:searchText">
+					{{member.name}} {{member.age}}
+				</li>
+			</ul>
+		</div>
+
+
+		<!---------------------------------------->
+		<!--Angular Sample4 アクション-->
+		<!---------------------------------------->
+		<hr>
+		<h2>Sample4</h2>
+		<div ng-controller="myController as myCtrl">
+			{{myCtrl.count}}
+
+			<button ng-click="myCtrl.inc()">+1</button>
+			<button ng-click="myCtrl.dec()">-1</button>
+		</div>
+
+		<!---------------------------------------->
+		<!--Angular Sample5 フォームバリデーション-->
+		<!---------------------------------------->
+		<hr>
+		<h2>Sample5</h2>
+		<form name="myForm" novalidate>
+			<div><input type="text" name="text1" ng-model="sampleText" ng-required="true" ng-minlength=3 ng-maxlength=8></div>
+			<div ng-show="myForm.text1.$error.required">入力してください</div>
+			<div ng-show="myForm.text1.$error.minlength">文字数が足りません。３文字以上入力してください。</div>
+			<div ng-show="myForm.text1.$error.maxlength">文字数が多すぎです。８文字以内で入力してください。</div>
+		</form>
+
+		<!---------------------------------------->
+		<!--Angular Sample6 -->
+		<!---------------------------------------->
+		<hr>
+		<h2>Sample6</h2>
+		<div ng-controller="myController as myCtrl">
+			<div>
+				<input type="text" ng-model="myCtrl.name">(<input type="text" ng-model="myCtrl.age">)
+				<button ng-click="myCtrl.onAdd()">Add</button>
+			</div>
+			<div ng-repeat="member_b in myCtrl.members_b">
+				<input type="checkbox" ng-model="member_b.checked">
+				{{member_b.name}}({{member_b.age}})
+			</div>
+			<div>
+				<button ng-click="myCtrl.onDel()">Del</button>
+			</div>
+			<hr>
+			<pre>{{myCtrl.members_b|json}}</pre>
+		</div>
+
+		<!---------------------------------------->
+		<!--データバインディング-->
+		<!---------------------------------------->
+		<hr>
+		<div ng-init="qty=3;cost=2">
+			<b>Invoice:</b>
+			<div>
+				Quantity:
+				<input type="number" ng-model="qty" required >
+			</div>
+			<div>
+				Costs:
+				<input type="number" ng-model="cost" required >
+			</div>
+			<div>
+				<b>Total:</b>
+				{{qty * cost | currency}}
+			</div>
+		</div>
+
+		<!--データバインディング-->
+		<hr>
+
+
+
+
+
+
+
+	</body>
+</html>
