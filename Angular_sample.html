@@ -1,63 +1,60 @@
 <!doctype html>
 <html lang="ja" ng-app="myApp">
-<title>Angular.js Sample library</title>
+<title>Angular.js Samples</title>
 <head>
 <meta charset="utf-8">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 <script>
 //myappモジュールを作成
 var app = angular.module('myApp', []);
-//myappモジュールにmyControllerコントローラーを登録
-app.controller('myController', function() {
-	//----------------------------------
-	//Angular Sample1
-	//----------------------------------
-	this.message = 'Hello world!';
+	//myappモジュールにmyControllerコントローラーを登録
+	app.controller('myController', function() {
+		//----------------------------------
+		//Angular Sample1
+		//----------------------------------
+		this.message = 'Hello world!';
 
-	//----------------------------------
-	//Angular Sample2
-	//----------------------------------
-	this.members = [
-		{ name: 'Tanaka', age: 36 },
-		{ name: 'Suzuki', age: 16 },
-		{ name: 'Yamada', age: 26 }
-	];
+		//----------------------------------
+		//Angular Sample2
+		//----------------------------------
+		this.members = [
+			{ name: 'Tanaka', age: 36 },
+			{ name: 'Suzuki', age: 16 },
+			{ name: 'Yamada', age: 26 }
+		];
 
-	//----------------------------------
-	//Angular Sample4
-	//----------------------------------
-	this.count = 0;
-	this.inc = function() { this.count++; }
-	this.dec = function() { this.count--; }
+		//----------------------------------
+		//Angular Sample4
+		//----------------------------------
+		this.count = 0;
+		this.inc = function() { this.count++; }
+		this.dec = function() { this.count--; }
 
-	//----------------------------------
-	//Angular Sample6
-	//----------------------------------
-	this.members_b = [
-		{ name:"田中", age:16 },
-		{ name:"山田", age:26 },
-		{ name:"鈴木", age:36 },
-	];
-	this.onAdd = function() {
-		//入力チェック
-		if(typeof this.name !==　'undefined' & typeof this.age !==　'undefined'){
-			this.members_b.push({ name:this.name, age:this.age });
-			this.name = this.age = "";
-		}else{
-			alert("入力してください。");
-		}
-
-	};
-	this.onDel = function() {
-		for (var i = 0; i < this.members_b.length; i++) {
-			if (this.members_b[i].checked) {
-				this.members_b.splice(i--, 1);
+		//----------------------------------
+		//Angular Sample6
+		//----------------------------------
+		this.members_b = [
+			{ name:"田中", age:16 },
+			{ name:"山田", age:26 },
+			{ name:"鈴木", age:36 },
+		];
+		this.onAdd = function() {
+			//入力チェック
+			if(typeof this.name !==　'undefined' & typeof this.age !==　'undefined'){
+				this.members_b.push({ name:this.name, age:this.age });
+				this.name = this.age = "";
+			}else{
+				alert("入力してください。");
 			}
-		}
-	};
-
-
-});
+		};
+		this.onDel = function() {
+			for (var i = 0; i < this.members_b.length; i++) {
+				if (this.members_b[i].checked) {
+					this.members_b.splice(i--, 1);
+				}
+			}
+		};
+	});
 </script>
 </head>
 	<body>
@@ -65,7 +62,7 @@ app.controller('myController', function() {
 		<!---------------------------------------->
 		<!--Angular Sample1 文字出力-->
 		<!---------------------------------------->
-		<h2>Sample1</h2>
+		<h3>Sample1 文字出力</h3>
 		<div>
 			<div ng-controller="myController as myCtrl">
 				{{myCtrl.message}}
@@ -76,7 +73,7 @@ app.controller('myController', function() {
 		<!--Angular Sample2 リスト作成-->
 		<!---------------------------------------->
 		<hr>
-		<h2>Sample2</h2>
+		<h3>Sample2　リスト作成</h3>
 		<div ng-controller="myController as myCtrl">
 			<ul>
 				<!--member変数にmyCtrl.members配列の情報を格納する-->
@@ -93,7 +90,7 @@ app.controller('myController', function() {
 		<!--Angular Sample3 リストフィルタ-->
 		<!---------------------------------------->
 		<hr>
-		<h2>Sample3</h2>
+		<h3>Sample3　リストフィルタ</h3>
 		<div ng-controller="myController as myCtrl">
 			<input type="text" ng-model="searchText">
 			<ul>
@@ -103,15 +100,13 @@ app.controller('myController', function() {
 			</ul>
 		</div>
 
-
 		<!---------------------------------------->
 		<!--Angular Sample4 アクション-->
 		<!---------------------------------------->
 		<hr>
-		<h2>Sample4</h2>
+		<h3>Sample4　アクション</h3>
 		<div ng-controller="myController as myCtrl">
 			{{myCtrl.count}}
-
 			<button ng-click="myCtrl.inc()">+1</button>
 			<button ng-click="myCtrl.dec()">-1</button>
 		</div>
@@ -120,7 +115,7 @@ app.controller('myController', function() {
 		<!--Angular Sample5 フォームバリデーション-->
 		<!---------------------------------------->
 		<hr>
-		<h2>Sample5</h2>
+		<h3>Sample5　フォームバリデーション</h3>
 		<form name="myForm" novalidate>
 			<div><input type="text" name="text1" ng-model="sampleText" ng-required="true" ng-minlength=3 ng-maxlength=8></div>
 			<div ng-show="myForm.text1.$error.required">入力してください</div>
@@ -129,10 +124,10 @@ app.controller('myController', function() {
 		</form>
 
 		<!---------------------------------------->
-		<!--Angular Sample6 -->
+		<!--Angular Sample6  リスト+json-->
 		<!---------------------------------------->
 		<hr>
-		<h2>Sample6</h2>
+		<h3>Sample6　リスト＋json</h3>
 		<div ng-controller="myController as myCtrl">
 			<div>
 				<input type="text" ng-model="myCtrl.name">(<input type="text" ng-model="myCtrl.age">)
@@ -150,9 +145,10 @@ app.controller('myController', function() {
 		</div>
 
 		<!---------------------------------------->
-		<!--データバインディング-->
+		<!--Angular Sample7 データバインディング-->
 		<!---------------------------------------->
 		<hr>
+		<h3>Sample7 データバインディング</h3>
 		<div ng-init="qty=3;cost=2">
 			<b>Invoice:</b>
 			<div>
@@ -168,15 +164,6 @@ app.controller('myController', function() {
 				{{qty * cost | currency}}
 			</div>
 		</div>
-
-		<!--データバインディング-->
-		<hr>
-
-
-
-
-
-
 
 	</body>
 </html>
